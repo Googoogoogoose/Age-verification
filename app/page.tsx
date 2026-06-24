@@ -2,7 +2,7 @@
 
 export default function AgeVerification() {
   const handleYes = () => {
-    window.location.href = "https://www.fanvue.com/emiwolfii/fv-1";
+    window.location.href = "https://t.me/+540P0M9xabNmZTli";
   };
 
   const handleNo = () => {
