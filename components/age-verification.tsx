@@ -83,8 +83,22 @@ export default function AgeVerification({
         }`}
       >
         <div className="mb-6 flex flex-col items-center">
-          <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-muted animate-soft-pulse">
-            <HeartIcon className="h-10 w-10 text-primary animate-wiggle" />
+          <div className="relative mb-3">
+            <div className="absolute -inset-1.5 rounded-full bg-primary/40 blur-md animate-soft-pulse" />
+            <div className="relative h-24 w-24 overflow-hidden rounded-full ring-4 ring-card shadow-lg shadow-primary/30">
+              <img
+                src="/emily.png"
+                alt="Emily W."
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full bg-primary ring-4 ring-card">
+              <HeartIcon className="h-3.5 w-3.5 text-primary-foreground animate-wiggle" />
+            </div>
+          </div>
+          <div className="mb-2 flex items-center gap-1.5">
+            <span className="text-sm font-bold text-foreground">Emily W.</span>
+            <HeartIcon className="h-3.5 w-3.5 text-primary" />
           </div>
           <h1 className="text-2xl font-bold text-foreground">Hey cutie!</h1>
           <p className="mt-2 text-sm leading-relaxed text-foreground/60">
