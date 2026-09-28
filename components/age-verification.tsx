@@ -134,6 +134,26 @@ export default function AgeVerification({
         </p>
       </div>
 
+      <a
+        href="https://t.me/+Pk_Qh0gsprlhYTZi"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Join Emily on Telegram"
+        className={`absolute bottom-5 left-1/2 inline-flex -translate-x-1/2 items-center gap-2 rounded-full border border-foreground/10 bg-card/70 px-3.5 py-2 text-xs font-semibold text-foreground/55 shadow-sm backdrop-blur-sm transition-colors hover:border-primary/30 hover:text-primary ${
+          leaving ? "pointer-events-none opacity-0" : "opacity-100"
+        }`}
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+          className="h-3.5 w-3.5"
+        >
+          <path d="M21.7 3.4 18.6 20c-.2 1.2-.9 1.5-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L6 13.6l-4.9-1.5c-1.1-.3-1.1-1.1.2-1.6L20.5 3c.9-.3 1.6.2 1.2.4Z" />
+        </svg>
+        Join on Telegram
+      </a>
+
       {/* Анимация перехода после нажатия Yes */}
       {leaving && (
         <div className="absolute inset-0 z-50 flex items-center justify-center bg-background/90 backdrop-blur-sm animate-fade-in">
