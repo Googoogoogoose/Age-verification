@@ -139,7 +139,7 @@ export default function AgeVerification({
         target="_blank"
         rel="noreferrer"
         aria-label="Join Emily on Telegram"
-        className={`absolute bottom-5 left-1/2 inline-flex -translate-x-1/2 items-center gap-2 rounded-full border border-foreground/10 bg-card/70 px-3.5 py-2 text-xs font-semibold text-foreground/55 shadow-sm backdrop-blur-sm transition-colors hover:border-primary/30 hover:text-primary ${
+        className={`absolute bottom-5 left-1/2 inline-flex -translate-x-1/2 items-center gap-2 rounded-full border border-primary/35 bg-primary/10 px-4 py-2.5 text-sm font-semibold text-foreground shadow-md shadow-primary/10 backdrop-blur-sm transition-all duration-200 hover:scale-[1.03] hover:border-primary/60 hover:bg-primary/15 hover:text-primary hover:shadow-lg hover:shadow-primary/20 active:scale-95 ${
           leaving ? "pointer-events-none opacity-0" : "opacity-100"
         }`}
       >
@@ -151,7 +151,7 @@ export default function AgeVerification({
         >
           <path d="M21.7 3.4 18.6 20c-.2 1.2-.9 1.5-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L6 13.6l-4.9-1.5c-1.1-.3-1.1-1.1.2-1.6L20.5 3c.9-.3 1.6.2 1.2.4Z" />
         </svg>
-        Join on Telegram
+        Follow on Telegram
       </a>
 
       {/* Анимация перехода после нажатия Yes */}
