@@ -46,6 +46,12 @@ export default function AgeVerification({ yesUrl, noUrl = "https://google.com" }
 
   return (
     <main className={darkMode ? "age-shell age-shell-dark" : "age-shell age-shell-light"}>
+      <div className="age-hero" aria-hidden="true">
+        <img
+          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo-cmufjx6da0009361rs4azlh5m.png-QTKOZg5Vot9XwdHBCWDRgWYCcmasMc.jpeg"
+          alt=""
+        />
+      </div>
       <div className="age-noise" aria-hidden="true" />
       <header className="age-header">
         <div className="age-mark">PRIVATE</div>

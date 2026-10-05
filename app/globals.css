@@ -28,6 +28,11 @@ button, a { font: inherit; }
 
 .age-shell { position: relative; display: flex; min-height: 100svh; flex-direction: column; overflow: hidden; padding: 28px clamp(20px, 5vw, 76px) 24px; transition: background .35s, color .35s; }
 .age-shell-dark { background: #0d0a0c; color: #fff8fb; }
+.age-hero { pointer-events: none; position: absolute; z-index: 0; inset: 0 0 auto; height: min(72svh, 680px); overflow: hidden; opacity: .82; }
+.age-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(13,10,12,.08) 0%, rgba(13,10,12,.16) 30%, #0d0a0c 96%); }
+.age-hero img { width: 100%; height: 100%; object-fit: cover; object-position: center 24%; filter: saturate(.82) contrast(.98); }
+.age-shell-light .age-hero::after { background: linear-gradient(180deg, rgba(255,241,246,.04) 0%, rgba(255,241,246,.16) 34%, #fff1f6 96%); }
+.age-shell-light .age-hero img { filter: saturate(.72) contrast(.96); }
 .age-shell-light { background: #fff1f6; color: #3f1d2b; }
 .age-noise { pointer-events: none; position: absolute; inset: 0; opacity: .12; background: radial-gradient(circle at 50% 45%, rgba(255,111,174,.32), transparent 35%), radial-gradient(circle at 8% 90%, rgba(255,155,197,.15), transparent 28%); }
 .age-header, .age-footer, .age-content { position: relative; z-index: 1; }
