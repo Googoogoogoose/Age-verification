@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fff0f6;
-  --foreground: #5b2b43;
-  --card: #ffffff;
-  --primary: #ff7eb6;
-  --primary-foreground: #ffffff;
-  --muted: #ffe0ee;
-  --accent: #ffb3d1;
+  --background: #0d0a0c;
+  --foreground: #fff8fb;
+  --card: #171014;
+  --primary: #ff6fae;
+  --primary-foreground: #160b11;
+  --muted: #2b1b25;
+  --accent: #ff9bc5;
 }
 
 @theme inline {
@@ -21,82 +21,53 @@
   --font-sans: var(--font-quicksand);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-quicksand), ui-sans-serif, system-ui, sans-serif;
+* { box-sizing: border-box; }
+html, body { min-height: 100%; }
+body { margin: 0; background: #0d0a0c; color: #fff8fb; font-family: var(--font-quicksand), ui-sans-serif, system-ui, sans-serif; }
+button, a { font: inherit; }
+
+.age-shell { position: relative; display: flex; min-height: 100svh; flex-direction: column; overflow: hidden; padding: 28px clamp(20px, 5vw, 76px) 24px; transition: background .35s, color .35s; }
+.age-shell-dark { background: #0d0a0c; color: #fff8fb; }
+.age-shell-light { background: #fff1f6; color: #3f1d2b; }
+.age-noise { pointer-events: none; position: absolute; inset: 0; opacity: .12; background: radial-gradient(circle at 50% 45%, rgba(255,111,174,.32), transparent 35%), radial-gradient(circle at 8% 90%, rgba(255,155,197,.15), transparent 28%); }
+.age-header, .age-footer, .age-content { position: relative; z-index: 1; }
+.age-header { display: flex; align-items: center; justify-content: space-between; }
+.age-mark { color: #ff8fbe; font-size: 11px; font-weight: 800; letter-spacing: .3em; }
+.theme-toggle { display: inline-flex; align-items: center; gap: 8px; border: 1px solid currentColor; border-radius: 999px; padding: 8px 13px; background: transparent; color: inherit; cursor: pointer; font-size: 12px; font-weight: 700; opacity: .8; transition: .2s; }
+.theme-toggle:hover { background: rgba(255,111,174,.12); color: #ff8fbe; opacity: 1; }
+.age-content { display: flex; width: min(100%, 590px); flex: 1; flex-direction: column; align-items: center; justify-content: center; margin: -12px auto 0; text-align: center; transition: opacity .5s, transform .5s; }
+.age-content-leaving { transform: scale(.96); opacity: 0; }
+.profile-photo-wrap { position: relative; width: 76px; height: 76px; margin-bottom: 18px; }
+.profile-photo-ring { position: absolute; inset: -5px; border: 1px solid #ff6fae; border-radius: 50%; box-shadow: 0 0 32px rgba(255,111,174,.3); }
+.profile-photo { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.profile-name { margin: 0 0 14px; color: #ff91bd; font-size: 13px; font-weight: 700; letter-spacing: .08em; }
+.age-content h1 { margin: 0; font-size: clamp(40px, 7vw, 72px); line-height: .98; letter-spacing: -.065em; font-weight: 700; }
+.age-intro { margin: 22px 0 0; max-width: 430px; color: currentColor; font-size: 15px; line-height: 1.6; opacity: .66; }
+.age-actions { width: min(100%, 385px); margin-top: 30px; }
+.age-label { margin: 0 0 10px; color: #ff91bd; font-size: 10px; font-weight: 800; letter-spacing: .28em; }
+.primary-action { display: flex; width: 100%; align-items: center; justify-content: center; gap: 14px; border: 0; border-radius: 999px; padding: 16px 24px; background: linear-gradient(100deg, #ff67a7, #ff9ac5); color: #241018; cursor: pointer; font-size: 15px; font-weight: 800; box-shadow: 0 10px 34px rgba(255,111,174,.28); transition: .2s; }
+.primary-action:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(255,111,174,.4); }
+.primary-action:active { transform: scale(.98); }
+.primary-action:disabled, .secondary-action:disabled { cursor: wait; opacity: .7; }
+.secondary-action { border: 0; background: transparent; color: currentColor; cursor: pointer; padding: 13px 20px; font-size: 12px; opacity: .48; transition: .2s; }
+.secondary-action:hover { opacity: .9; }
+.social-links { display: flex; gap: 10px; margin-top: 34px; }
+.social-links a { display: inline-flex; align-items: center; gap: 7px; border: 1px solid currentColor; border-radius: 999px; padding: 9px 14px; color: inherit; font-size: 12px; font-weight: 700; text-decoration: none; opacity: .58; transition: .2s; }
+.social-links a:hover { border-color: #ff6fae; color: #ff8fbe; opacity: 1; transform: translateY(-2px); }
+.age-footer { text-align: center; color: currentColor; font-size: 10px; opacity: .34; }
+.age-transition { position: absolute; z-index: 5; inset: 0; display: grid; place-items: center; background: rgba(13,10,12,.94); color: #ff91bd; font-size: clamp(34px, 7vw, 72px); font-weight: 700; letter-spacing: -.06em; animation: age-fade-in .4s ease-out both; }
+.age-shell-light .age-transition { background: rgba(255,241,246,.95); }
+
+@keyframes age-fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+@media (max-width: 520px) {
+  .age-shell { padding: 22px 20px 20px; }
+  .age-content { margin-top: 0; }
+  .age-content h1 { font-size: clamp(39px, 12vw, 58px); }
+  .age-intro { font-size: 14px; }
+  .age-actions { margin-top: 26px; }
 }
 
-@keyframes float-up {
-  0% {
-    transform: translateY(0) scale(var(--s, 1));
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-110vh) scale(var(--s, 1));
-    opacity: 0;
-  }
-}
-
-@keyframes heart-pop {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  50% {
-    transform: scale(1.25);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes soft-pulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.06);
-  }
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes wiggle {
-  0%,
-  100% {
-    transform: rotate(-4deg);
-  }
-  50% {
-    transform: rotate(4deg);
-  }
-}
-
-.animate-float-up {
-  animation: float-up linear forwards;
-}
-.animate-heart-pop {
-  animation: heart-pop 0.6s ease-out forwards;
-}
-.animate-soft-pulse {
-  animation: soft-pulse 2.5s ease-in-out infinite;
-}
-.animate-fade-in {
-  animation: fade-in 0.4s ease-out forwards;
-}
-.animate-wiggle {
-  animation: wiggle 2s ease-in-out infinite;
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }
