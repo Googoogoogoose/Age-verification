@@ -46,7 +46,7 @@ button, a { font: inherit; }
 .age-content-leaving { transform: scale(.96); opacity: 0; }
 .profile-photo-wrap { position: relative; width: 76px; height: 76px; margin-bottom: 18px; }
 .profile-photo-ring { position: absolute; inset: -5px; border: 1px solid #ff6fae; border-radius: 50%; box-shadow: 0 0 32px rgba(255,111,174,.3); }
-.profile-photo { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.profile-photo { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: 50% 20%; }
 .profile-name { margin: 0 0 14px; color: #ff91bd; font-size: 13px; font-weight: 700; letter-spacing: .08em; }
 .age-content h1 { margin: 0; font-size: clamp(40px, 7vw, 72px); line-height: .98; letter-spacing: -.065em; font-weight: 700; }
 .age-intro { margin: 22px 0 0; max-width: 430px; color: currentColor; font-size: 15px; line-height: 1.6; opacity: .66; }
