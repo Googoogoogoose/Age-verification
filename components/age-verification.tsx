@@ -49,7 +49,9 @@ export default function AgeVerification({ yesUrl, noUrl = "https://google.com" }
       <div className="age-hero" aria-hidden="true">
         <img
           src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo-cmufjx6da0009361rs4azlh5m.png-QTKOZg5Vot9XwdHBCWDRgWYCcmasMc.jpeg"
-          alt=""
+          alt="Emily beside a pink motorcycle"
+          fetchPriority="high"
+          decoding="async"
         />
       </div>
       <div className="age-noise" aria-hidden="true" />
