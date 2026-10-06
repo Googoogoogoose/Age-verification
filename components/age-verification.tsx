@@ -71,7 +71,13 @@ export default function AgeVerification({ yesUrl, noUrl = "https://google.com" }
       <section className={`age-content ${leaving ? "age-content-leaving" : ""}`}>
         <div className="profile-photo-wrap">
           <div className="profile-photo-ring" />
-          <img src="/emily.png" alt="Emily W." className="profile-photo" />
+          <img
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/hf_20260910_150447_ddcc8977-0b6d-41a7-9e68-e8869d268a5a.PNG-4mEuNa7E8wBFmIXIY6FrSf1vHB5FJJ.jpeg"
+            alt="Emily W."
+            className="profile-photo"
+            loading="eager"
+            decoding="async"
+          />
         </div>
         <p className="profile-name">Emily W.</p>
         <h1>More than<br />the Instagram version.</h1>
