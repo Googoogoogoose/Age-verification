@@ -1,3 +1,10 @@
 {
-  "buildCommand": "next build"
+  "buildCommand": "next build",
+  "redirects": [
+    {
+      "source": "/vip",
+      "destination": "https://www.fanvue.com/emiwolfii/fv-7",
+      "statusCode": 302
+    }
+  ]
 }

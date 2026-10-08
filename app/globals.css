@@ -40,32 +40,22 @@ button, a { font: inherit; }
 .age-header, .age-footer, .age-content { position: relative; z-index: 1; }
 .age-header { display: flex; align-items: center; justify-content: space-between; }
 .age-mark { color: #ff8fbe; font-size: 11px; font-weight: 800; letter-spacing: .3em; }
-.theme-toggle { display: inline-flex; align-items: center; gap: 8px; border: 1px solid currentColor; border-radius: 999px; padding: 8px 13px; background: transparent; color: inherit; cursor: pointer; font-size: 12px; font-weight: 700; opacity: .8; transition: .2s; }
-.theme-toggle:hover { background: rgba(255,111,174,.12); color: #ff8fbe; opacity: 1; }
-.age-content { display: flex; width: min(100%, 590px); flex: 1; flex-direction: column; align-items: center; justify-content: center; margin: -12px auto 0; text-align: center; transition: opacity .5s, transform .5s; }
-.age-content-leaving { transform: scale(.96); opacity: 0; }
+.age-content { display: flex; width: min(100%, 590px); flex: 1; flex-direction: column; align-items: center; justify-content: center; margin: -12px auto 0; text-align: center; transform: translateY(12px); transition: opacity .5s, transform .5s; }
 .profile-photo-wrap { position: relative; width: 76px; height: 76px; margin-bottom: 18px; }
 .profile-photo-ring { position: absolute; inset: -5px; border: 1px solid #ff6fae; border-radius: 50%; box-shadow: 0 0 32px rgba(255,111,174,.3); }
 .profile-photo { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: 50% 20%; }
 .profile-name { margin: 0 0 14px; color: #ff91bd; font-size: 13px; font-weight: 700; letter-spacing: .08em; }
 .age-content h1 { margin: 0; font-size: clamp(40px, 7vw, 72px); line-height: .98; letter-spacing: -.065em; font-weight: 700; }
 .age-intro { margin: 22px 0 0; max-width: 430px; color: currentColor; font-size: 15px; line-height: 1.6; opacity: .66; }
-.age-actions { width: min(100%, 385px); margin-top: 30px; }
+.age-actions { width: min(100%, 385px); margin-top: 30px; padding-bottom: 40px; }
 .age-label { margin: 0 0 10px; color: #ff91bd; font-size: 10px; font-weight: 800; letter-spacing: .28em; }
-.primary-action { display: flex; width: 100%; align-items: center; justify-content: center; gap: 14px; border: 0; border-radius: 999px; padding: 16px 24px; background: linear-gradient(100deg, #ff67a7, #ff9ac5); color: #241018; cursor: pointer; font-size: 15px; font-weight: 800; box-shadow: 0 10px 34px rgba(255,111,174,.28); transition: .2s; }
+.primary-action { display: flex; width: 100%; align-items: center; justify-content: center; gap: 14px; border: 0; border-radius: 999px; padding: 16px 24px; background: linear-gradient(100deg, #ff67a7, #ff9ac5); color: #241018; cursor: pointer; font-size: 15px; font-weight: 800; text-decoration: none; box-shadow: 0 10px 34px rgba(255,111,174,.28); transition: .2s; }
 .primary-action:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(255,111,174,.4); }
 .primary-action:active { transform: scale(.98); }
-.primary-action:disabled, .secondary-action:disabled { cursor: wait; opacity: .7; }
-.secondary-action { border: 0; background: transparent; color: currentColor; cursor: pointer; padding: 13px 20px; font-size: 12px; opacity: .48; transition: .2s; }
-.secondary-action:hover { opacity: .9; }
-.social-links { display: flex; gap: 10px; margin-top: 34px; }
-.social-links a { display: inline-flex; align-items: center; gap: 7px; border: 1px solid currentColor; border-radius: 999px; padding: 9px 14px; color: inherit; font-size: 12px; font-weight: 700; text-decoration: none; opacity: .58; transition: .2s; }
-.social-links a:hover { border-color: #ff6fae; color: #ff8fbe; opacity: 1; transform: translateY(-2px); }
+.vip-link { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; gap: 6px; margin-top: 34px; padding: 0 14px; color: inherit; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-decoration: none; opacity: .48; transition: .2s; }
+.vip-link:hover { color: #ff8fbe; opacity: .8; }
+.vip-link:focus-visible { border-radius: 999px; outline: 2px solid #ff8fbe; outline-offset: 3px; }
 .age-footer { text-align: center; color: currentColor; font-size: 10px; opacity: .34; }
-.age-transition { position: absolute; z-index: 5; inset: 0; display: grid; place-items: center; background: rgba(13,10,12,.94); color: #ff91bd; font-size: clamp(34px, 7vw, 72px); font-weight: 700; letter-spacing: -.06em; animation: age-fade-in .4s ease-out both; }
-.age-shell-light .age-transition { background: rgba(255,241,246,.95); }
-
-@keyframes age-fade-in { from { opacity: 0; } to { opacity: 1; } }
 
 @media (max-width: 520px) {
   .age-shell { padding: 22px 20px 20px; }
