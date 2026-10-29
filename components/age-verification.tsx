@@ -42,19 +42,19 @@ export default function AgeVerification({ vipHref = "/vip" }: { vipHref?: string
 
         <div className="age-actions">
           <p className="age-label">PRIVATE ACCESS</p>
-          <a
-            href="https://t.me/+R-hL3lGglts5Mjc6"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="primary-action"
-          >
+          <a href={vipHref} className="primary-action">
             Enter privately <span aria-hidden="true">↗</span>
           </a>
         </div>
 
-        <a href={vipHref} className="vip-link">
-          <span aria-hidden="true">🔒</span>
-          <span>VIP</span>
+        <a
+          href="https://t.me/+R-hL3lGglts5Mjc6"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="vip-link"
+        >
+          <span aria-hidden="true">✈️</span>
+          <span>TELEGRAM</span>
         </a>
       </section>
 
