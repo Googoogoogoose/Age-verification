@@ -23,9 +23,27 @@ else if(ios&&th){href="barcelona://extbrowser/?url="+encodeURIComponent(dest);}
 if(href)location.replace(href);
 }catch(e){}})();`;
 
+const AVATAR =
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/hf_20260910_150447_ddcc8977-0b6d-41a7-9e68-e8869d268a5a.PNG-4mEuNa7E8wBFmIXIY6FrSf1vHB5FJJ.jpeg";
+
 export const metadata: Metadata = {
-  title: "Age Verification",
-  description: "Please confirm your age to continue",
+  metadataBase: new URL("https://hey-its-emily.com"),
+  title: "Emily W.",
+  description: "A private little corner. Come in and see the side that stays off the feed.",
+  openGraph: {
+    title: "Emily W.",
+    description: "A private little corner. Come in and see the side that stays off the feed.",
+    url: "https://hey-its-emily.com",
+    siteName: "Emily W.",
+    type: "website",
+    images: [{ url: AVATAR, alt: "Emily W." }],
+  },
+  twitter: {
+    card: "summary",
+    title: "Emily W.",
+    description: "A private little corner. Come in and see the side that stays off the feed.",
+    images: [AVATAR],
+  },
 };
 
 export default function RootLayout({
