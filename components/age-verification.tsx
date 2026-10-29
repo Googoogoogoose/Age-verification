@@ -23,12 +23,15 @@ export default function AgeVerification() {
       <section className="age-content">
         <div className="profile-photo-wrap">
           <div className="profile-photo-ring" />
-          <img
+          <Image
             src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/hf_20260910_150447_ddcc8977-0b6d-41a7-9e68-e8869d268a5a.PNG-4mEuNa7E8wBFmIXIY6FrSf1vHB5FJJ.jpeg"
             alt="Emily W."
             className="profile-photo"
-            loading="eager"
-            decoding="async"
+            width={76}
+            height={76}
+            sizes="76px"
+            quality={80}
+            priority
           />
         </div>
         <p className="profile-name">Emily W.</p>
