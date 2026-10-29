@@ -15,10 +15,9 @@ if(/(?:^|[?&])ext=1(?:&|$)/.test(location.search))return;
 var ig=/\\bInstagram\\b/i.test(ua),th=/Barcelona|Threads/i.test(ua);
 var andIn=ig||th||/FBAN|FBAV|FB_IAB|Messenger|TikTok|musical_ly|BytedanceWebview|TTWebView|TwitterAndroid|Snapchat|\\bLine\\/|; wv\\)/i.test(ua);
 var ios=/iPhone|iPad|iPod/i.test(ua);
-if(location.pathname.indexOf("/go-test")===0)return;
-var dest="https://hey-its-emily.vercel.app"+location.pathname;
+var dest="https://"+location.host+location.pathname;
 var href=null;
-if(/Android/i.test(ua)&&andIn){href="intent://hey-its-emily.vercel.app"+location.pathname+"#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url="+encodeURIComponent(dest)+";end";}
+if(/Android/i.test(ua)&&andIn){href="intent://"+location.host+location.pathname+"#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url="+encodeURIComponent(dest)+";end";}
 else if(ios&&ig){href="instagram://extbrowser/"+encodeURIComponent(dest);}
 else if(ios&&th){href="barcelona://extbrowser/"+encodeURIComponent(dest);}
 if(href)location.replace(href);

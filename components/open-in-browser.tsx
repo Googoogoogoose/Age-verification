@@ -8,8 +8,8 @@ import { useEffect, useState } from "react";
 // в системный браузер так же, как это делает лендинг Мото Лолы:
 // iOS Instagram понимает instagram://extbrowser/, Threads — barcelona://extbrowser/,
 // на Android работает intent:// в Chrome.
-// Чистый адрес без хвоста ?fbclid=..., который добавляет Instagram.
-const SITE = "https://hey-its-emily.vercel.app";
+// Чистый адрес текущего домена без хвоста ?fbclid=..., который добавляет Instagram.
+const site = () => "https://" + window.location.host;
 
 type Mode = "android" | "instagram" | "threads" | null;
 
@@ -70,7 +70,7 @@ export default function OpenInBrowser() {
       const raw = a.getAttribute("href") || "";
       if (!raw.startsWith("/")) return;
       e.preventDefault();
-      openOutside(m, SITE + raw.split("?")[0]);
+      openOutside(m, site() + raw.split("?")[0]);
     };
     document.addEventListener("click", onClick, true);
     return () => document.removeEventListener("click", onClick, true);
@@ -87,7 +87,7 @@ export default function OpenInBrowser() {
       </p>
       <button
         type="button"
-        onClick={() => openOutside(mode, SITE + window.location.pathname)}
+        onClick={() => openOutside(mode, site() + window.location.pathname)}
       >
         Open in browser ↗
       </button>
