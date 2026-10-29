@@ -5,6 +5,11 @@
       "source": "/vip",
       "destination": "https://www.fanvue.com/emiwolfii/fv-8",
       "statusCode": 302
+    },
+    {
+      "source": "/vip-fb",
+      "destination": "https://www.fanvue.com/emiwolfii/fv-9",
+      "statusCode": 302
     }
   ]
 }
