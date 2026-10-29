@@ -5,86 +5,95 @@ import { useEffect, useState } from "react";
 // Instagram, Facebook и другие соцсети открывают ссылки во встроенном браузере.
 // Там не работает вход через Google/Apple, нет сохранённых карт и Apple Pay,
 // поэтому на Fanvue почти никто не доходит до оплаты. Выводим человека
-// в системный браузер (Safari / Chrome), как это делают другие креаторы.
-const IN_APP_RE = /Instagram|FBAN|FBAV|FB_IAB|FBIOS|Messenger|musical_ly|BytedanceWebview|TikTok|Snapchat|Line\/|Twitter/i;
+// в системный браузер так же, как это делает лендинг Мото Лолы:
+// iOS Instagram понимает instagram://extbrowser/, Threads — barcelona://extbrowser/,
+// на Android работает intent:// в Chrome.
+type Mode = "android" | "instagram" | "threads" | null;
 
-type Platform = "ios" | "android" | "other";
-
-function detect(): { inApp: boolean; platform: Platform } {
+function detectMode(): Mode {
   const ua = navigator.userAgent || "";
-  const platform: Platform = /iPhone|iPad|iPod/i.test(ua)
-    ? "ios"
-    : /Android/i.test(ua)
-      ? "android"
-      : "other";
-  return { inApp: IN_APP_RE.test(ua), platform };
-}
-
-function externalUrl(platform: Platform, path: string): string | null {
-  const { host } = window.location;
-  if (platform === "ios") return `x-safari-https://${host}${path}`;
-  if (platform === "android") {
-    const fallback = encodeURIComponent(`https://${host}${path}`);
-    return `intent://${host}${path}#Intent;scheme=https;S.browser_fallback_url=${fallback};end`;
-  }
+  const instagram = /\bInstagram\b/i.test(ua);
+  const threads = /Barcelona|Threads/i.test(ua);
+  const androidInApp =
+    instagram ||
+    threads ||
+    /FBAN|FBAV|FB_IAB|Messenger|TikTok|musical_ly|BytedanceWebview|TTWebView|TwitterAndroid|Snapchat|\bLine\/|; wv\)/i.test(ua);
+  const ios = /iPhone|iPad|iPod/i.test(ua);
+  if (/Android/i.test(ua) && androidInApp) return "android";
+  if (ios && instagram) return "instagram";
+  if (ios && threads) return "threads";
   return null;
 }
 
+function externalHref(mode: Mode, destination: string): string | null {
+  if (mode === "android") {
+    const url = new URL(destination);
+    return (
+      "intent://" + url.host + url.pathname + url.search +
+      "#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=" +
+      encodeURIComponent(destination) + ";end"
+    );
+  }
+  if (mode === "instagram") return "instagram://extbrowser/" + encodeURIComponent(destination);
+  if (mode === "threads") return "barcelona://extbrowser/" + encodeURIComponent(destination);
+  return null;
+}
+
+// Пробуем открыть внешний браузер; если через 1.5 с мы всё ещё на странице,
+// значит приложение отказалось, и идём по обычной ссылке, чтобы кнопка не «молчала».
+function openOutside(mode: Mode, destination: string) {
+  const href = externalHref(mode, destination);
+  if (!href) {
+    window.location.href = destination;
+    return;
+  }
+  let left = false;
+  const onHide = () => { left = true; };
+  document.addEventListener("visibilitychange", onHide, { once: true });
+  window.addEventListener("pagehide", onHide, { once: true });
+  window.addEventListener("blur", onHide, { once: true });
+  window.location.href = href;
+  setTimeout(() => {
+    if (!left && document.visibilityState === "visible") window.location.href = destination;
+  }, 1500);
+}
+
 export default function OpenInBrowser() {
-  const [state, setState] = useState<{ inApp: boolean; platform: Platform }>({
-    inApp: false,
-    platform: "other",
-  });
+  const [mode, setMode] = useState<Mode>(null);
 
   useEffect(() => {
-    const info = detect();
-    setState(info);
-    if (!info.inApp) return;
+    const m = detectMode();
+    setMode(m);
+    if (!m) return;
 
-    const here = window.location.pathname + window.location.search;
-    const url = externalUrl(info.platform, here);
-
-    // Один автоматический переход за сессию, чтобы не зациклиться.
-    let tried = false;
-    try {
-      tried = sessionStorage.getItem("escape-tried") === "1";
-      sessionStorage.setItem("escape-tried", "1");
-    } catch {}
-    if (url && !tried) window.location.href = url;
-
-    // Любая ссылка на сайт (например /vip) тоже уходит во внешний браузер.
+    // Внутренние ссылки (например /vip) ведём через внешний браузер.
     const onClick = (e: MouseEvent) => {
       const a = (e.target as HTMLElement | null)?.closest("a");
       if (!a) return;
-      const href = a.getAttribute("href") || "";
-      if (!href.startsWith("/")) return;
-      const out = externalUrl(info.platform, href);
-      if (!out) return;
+      const raw = a.getAttribute("href") || "";
+      if (!raw.startsWith("/")) return;
       e.preventDefault();
-      window.location.href = out;
+      openOutside(m, window.location.origin + raw);
     };
     document.addEventListener("click", onClick, true);
     return () => document.removeEventListener("click", onClick, true);
   }, []);
 
-  if (!state.inApp) return null;
-
-  const open = () => {
-    const here = window.location.pathname + window.location.search;
-    const url = externalUrl(state.platform, here);
-    if (url) window.location.href = url;
-  };
+  if (!mode) return null;
 
   return (
     <div className="escape-bar" role="note">
       <p>
-        {state.platform === "ios"
-          ? <>For private access open this page in Safari: tap <b>•••</b> → <b>Open in external browser</b></>
-          : <>For private access open this page in your browser: tap <b>⋮</b> → <b>Open in Chrome</b></>}
+        {mode === "android"
+          ? <>For private access open this page in your browser: tap <b>⋮</b> → <b>Open in Chrome</b></>
+          : <>For private access open this page in Safari: tap <b>•••</b> → <b>Open in external browser</b></>}
       </p>
-      {state.platform !== "other" && (
-        <button type="button" onClick={open}>Open in browser ↗</button>
-      )}
+      <button
+        type="button"
+        onClick={() => openOutside(mode, window.location.origin + window.location.pathname + window.location.search)}
+      >
+        Open in browser ↗
+      </button>
     </div>
   );
 }
