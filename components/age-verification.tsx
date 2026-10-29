@@ -1,8 +1,10 @@
 import Image from "next/image";
+import OpenInBrowser from "@/components/open-in-browser";
 
 export default function AgeVerification() {
   return (
     <main className="age-shell age-shell-dark">
+      <OpenInBrowser />
       <div className="age-hero" aria-hidden="true">
         <Image
           src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo-cmufjx6da0009361rs4azlh5m.png-QTKOZg5Vot9XwdHBCWDRgWYCcmasMc.jpeg"
