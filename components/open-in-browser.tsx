@@ -55,8 +55,28 @@ function openOutside(mode: Mode, destination: string) {
   setTimeout(() => { window.location.href = destination; }, 1500);
 }
 
+// Скрытый тест для нас: 5 нажатий на надпись PRIVATE показывают варианты вывода.
+const TESTS = [
+  ["A наш сайт", "instagram://extbrowser/" + encodeURIComponent(SITE + "/")],
+  ["C moto-lola.com", "instagram://extbrowser/" + encodeURIComponent("https://moto-lola.com/")],
+  ["D google.com", "instagram://extbrowser/" + encodeURIComponent("https://www.google.com/")],
+  ["G tinyurl", "instagram://extbrowser/" + encodeURIComponent("https://tinyurl.com/heyitsemily")],
+  ["H fanvue", "instagram://extbrowser/" + encodeURIComponent("https://www.fanvue.com/emiwolfii")],
+  ["E x-safari", "x-safari-https://hey-its-emily.vercel.app/"],
+  ["F chrome", "googlechrome://hey-its-emily.vercel.app/"],
+];
+
 export default function OpenInBrowser() {
   const [mode, setMode] = useState<Mode>(null);
+  const [taps, setTaps] = useState(0);
+
+  useEffect(() => {
+    const mark = document.querySelector(".age-mark");
+    if (!mark) return;
+    const onTap = () => setTaps((n) => n + 1);
+    mark.addEventListener("click", onTap);
+    return () => mark.removeEventListener("click", onTap);
+  }, []);
 
   useEffect(() => {
     const m = detectMode();
@@ -76,9 +96,19 @@ export default function OpenInBrowser() {
     return () => document.removeEventListener("click", onClick, true);
   }, []);
 
-  if (!mode) return null;
+  const tests = taps >= 5 && (
+    <div style={{ position: "fixed", inset: "auto 0 0 0", zIndex: 60, display: "grid", gap: 8, padding: 12, background: "#111" }}>
+      {TESTS.map(([label, href]) => (
+        <a key={label} href={href} style={{ padding: 12, borderRadius: 10, background: "#ff6fae", color: "#241018", fontWeight: 700, textDecoration: "none" }}>{label}</a>
+      ))}
+    </div>
+  );
+
+  if (!mode) return tests || null;
 
   return (
+    <>
+    {tests}
     <div className="escape-bar" role="note">
       <p>
         {mode === "android"
@@ -92,5 +122,6 @@ export default function OpenInBrowser() {
         Open in browser ↗
       </button>
     </div>
+    </>
   );
 }
