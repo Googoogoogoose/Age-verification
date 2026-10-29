@@ -1,7 +1,7 @@
 import Image from "next/image";
 import OpenInBrowser from "@/components/open-in-browser";
 
-export default function AgeVerification() {
+export default function AgeVerification({ vipHref = "/vip" }: { vipHref?: string }) {
   return (
     <main className="age-shell age-shell-dark">
       <OpenInBrowser />
@@ -52,7 +52,7 @@ export default function AgeVerification() {
           </a>
         </div>
 
-        <a href="/vip" className="vip-link">
+        <a href={vipHref} className="vip-link">
           <span aria-hidden="true">🔒</span>
           <span>VIP</span>
         </a>
