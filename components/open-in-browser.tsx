@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 // Там не работает вход через Google/Apple, нет сохранённых карт и Apple Pay,
 // поэтому на Fanvue почти никто не доходит до оплаты. Выводим человека
 // в системный браузер так же, как это делает лендинг Мото Лолы:
-// iOS Instagram понимает instagram://extbrowser/, Threads — barcelona://extbrowser/,
+// iOS Instagram понимает instagram://extbrowser/?url=, Threads — barcelona://extbrowser/?url=,
 // на Android работает intent:// в Chrome.
 // Чистый адрес текущего домена без хвоста ?fbclid=..., который добавляет Instagram.
 const site = () => "https://" + window.location.host;
@@ -37,8 +37,8 @@ function externalHref(mode: Mode, destination: string): string | null {
       encodeURIComponent(destination) + ";end"
     );
   }
-  if (mode === "instagram") return "instagram://extbrowser/" + encodeURIComponent(destination);
-  if (mode === "threads") return "barcelona://extbrowser/" + encodeURIComponent(destination);
+  if (mode === "instagram") return "instagram://extbrowser/?url=" + encodeURIComponent(destination);
+  if (mode === "threads") return "barcelona://extbrowser/?url=" + encodeURIComponent(destination);
   return null;
 }
 
@@ -70,7 +70,7 @@ export default function OpenInBrowser() {
       const raw = a.getAttribute("href") || "";
       if (!raw.startsWith("/")) return;
       e.preventDefault();
-      openOutside(m, site() + raw.split("?")[0]);
+      openOutside(m, site() + raw.split("?")[0] + "?ext=1");
     };
     document.addEventListener("click", onClick, true);
     return () => document.removeEventListener("click", onClick, true);
@@ -87,7 +87,7 @@ export default function OpenInBrowser() {
       </p>
       <button
         type="button"
-        onClick={() => openOutside(mode, site() + window.location.pathname)}
+        onClick={() => openOutside(mode, site() + window.location.pathname + "?ext=1")}
       >
         Open in browser ↗
       </button>
