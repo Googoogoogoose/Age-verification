@@ -8,6 +8,9 @@ import { useEffect, useState } from "react";
 // в системный браузер так же, как это делает лендинг Мото Лолы:
 // iOS Instagram понимает instagram://extbrowser/, Threads — barcelona://extbrowser/,
 // на Android работает intent:// в Chrome.
+// Чистый адрес без хвоста ?fbclid=..., который добавляет Instagram.
+const SITE = "https://hey-its-emily.vercel.app";
+
 type Mode = "android" | "instagram" | "threads" | null;
 
 function detectMode(): Mode {
@@ -39,23 +42,17 @@ function externalHref(mode: Mode, destination: string): string | null {
   return null;
 }
 
-// Пробуем открыть внешний браузер; если через 1.5 с мы всё ещё на странице,
-// значит приложение отказалось, и идём по обычной ссылке, чтобы кнопка не «молчала».
+// Пробуем открыть внешний браузер, а потом подстраховываемся обычной ссылкой,
+// чтобы кнопка никогда не «молчала».
 function openOutside(mode: Mode, destination: string) {
   const href = externalHref(mode, destination);
   if (!href) {
     window.location.href = destination;
     return;
   }
-  let left = false;
-  const onHide = () => { left = true; };
-  document.addEventListener("visibilitychange", onHide, { once: true });
-  window.addEventListener("pagehide", onHide, { once: true });
-  window.addEventListener("blur", onHide, { once: true });
   window.location.href = href;
-  setTimeout(() => {
-    if (!left && document.visibilityState === "visible") window.location.href = destination;
-  }, 1500);
+  // Если внешний браузер не открылся, через 1.5 с всё равно идём по обычной ссылке.
+  setTimeout(() => { window.location.href = destination; }, 1500);
 }
 
 export default function OpenInBrowser() {
@@ -73,7 +70,7 @@ export default function OpenInBrowser() {
       const raw = a.getAttribute("href") || "";
       if (!raw.startsWith("/")) return;
       e.preventDefault();
-      openOutside(m, window.location.origin + raw);
+      openOutside(m, SITE + raw.split("?")[0]);
     };
     document.addEventListener("click", onClick, true);
     return () => document.removeEventListener("click", onClick, true);
@@ -90,7 +87,7 @@ export default function OpenInBrowser() {
       </p>
       <button
         type="button"
-        onClick={() => openOutside(mode, window.location.origin + window.location.pathname + window.location.search)}
+        onClick={() => openOutside(mode, SITE + window.location.pathname)}
       >
         Open in browser ↗
       </button>
